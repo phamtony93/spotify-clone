@@ -7,3 +7,25 @@
     background: linear-gradient(rgb(91, 87, 115), black)
      
 }
+
+.body_info {
+    display: flex;
+    /* align items to the bottom of flex grid */
+    align-items: flex-end;
+}
+
+.body_info > img {
+    height: 20vh;
+    /* understand the difference between margin and padding here and it's affect on the shadowing */
+    margin: 0 20px;
+    box-shadow: 0 4px 60px rgb(0, 0, 0, .5);
+}
+
+.body_infoText > h4 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.body_infoText > p {
+    font-size: 12px;
+}

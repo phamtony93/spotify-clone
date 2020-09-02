@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_left {
+    flex: .5;
+    /* give a min-width to always show the 'Search' text within the search bar */
+    min-width: 70px;
+    display: flex;
+    background-color: white;
+    color: grey;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.header_left > input {
+    width: 100%;
+    border: none;
+}
+
+.header_right {
+    display: flex;
+    align-items: center;
+}
+
+.header_right > h4 {
+    margin-left: 10px;
+}

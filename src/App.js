@@ -39,6 +39,13 @@ function App() {
           type: 'SET_USER',
           user: user
           //user (shorthand for user: user in ES6)
+        })        
+      })
+      //Dispatch user's playlist to StatePovider layer
+      spotify.getUserPlaylists().then(playlists => {
+        dispatch({
+          type: 'SET_PLAYLISTS',
+          playlists: playlists
         })
       })
     }

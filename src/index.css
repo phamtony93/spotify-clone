@@ -1,3 +1,8 @@
+/* this removes the scrollbar from the view but keeps the functionality */
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* this removes default react margin, creates true blank slate. this might no longer be valid. */
 * {
   margin: 0;

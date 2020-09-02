@@ -3,7 +3,68 @@
     position: fixed;
     bottom: 0;
     height: 65px;
-    width: 100%;
+    /* weird glitch at 100% */
+    width: 97%;
     background-color: #282828;
     padding: 20px;
+    display: flex;
+    /* evenly space each of the contents between in the row */
+    justify-content: space-between;
+}
+
+.footer_right * .MuiSlider-root {
+    color: green;
+}
+
+.footer_left {
+    flex: .3;
+    display: flex;
+    color: white;
+    align-items: center;
+    width: 300px;
+}
+
+.footer_albumLogo {
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+    object-fit: contain;
+}
+.footer_songInfo > h4 {
+    margin-bottom: 5px;
+}
+.footer_songInfo > p {
+    font-size: 12px
+}
+
+.footer_center {
+    flex: .4;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 100px;
+    justify-content: space-between;
+    /* prevent icons from spacing out too far */
+    max-width: 300px;
+}
+
+.footer_right {
+    flex: .3;
+    display: flex;
+    color:white;
+    padding: 0 100px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 200px;
+}
+
+.footer_green {
+    color: green;
+}
+
+/* adds hover affect to icons, scales to 1.2 */
+.footer_green:hover,
+.footer_icon:hover {
+    transition: .2s ease-in-out;
+    transform: scale(1.2) !important;
 }
