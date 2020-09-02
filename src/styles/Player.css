@@ -1,0 +1,5 @@
+/* target the player_body within player and set grid to flex to set the sidear and body side by side */
+.player > .player_body {
+    /* flex displays in rows by default */
+    display: flex;
+}

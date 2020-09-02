@@ -1,0 +1,23 @@
+/* centers everything */
+.login {
+    display: grid;
+    place-items: center;
+    /* gives full height of page */
+    height: 100vh;
+    background-color: black;
+}
+
+.login > img {
+    /* width: 100%; */
+}
+
+.login > a {
+    padding: 20px;
+    border-radius: 99px;
+    background-color:  #1db954;
+    /* gives bold font */
+    font-weight: 800;
+    color: white;
+    /* removes underline of link */
+    text-decoration: none;
+}

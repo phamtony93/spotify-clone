@@ -1,0 +1,18 @@
+.sidebarOption {
+    color: grey;
+    height: 40px;
+    cursor: pointer;
+    /* delay the transition to white so that it fades instead of snapping to white */
+    transition: 100ms color ease-in;
+    display: flex;
+    /* snap into veritcal alignment */
+    align-items: center;
+}
+
+.sidebarOption:hover {
+    color: white;
+}
+
+.sidebarOption > .sidebarOptionIcon {
+    padding-right: 10px
+}
