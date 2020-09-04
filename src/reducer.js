@@ -4,8 +4,8 @@ export const initialState = {
     playing: false,
     item: null,
     //init token state for dev purposes. remove after dev is completed
-    token: 'BQDi9hJKdymtx3YzLLoWJ-_8LM_C-4nbEQABVGFFmvWr1D78gq…sXP98vhlpJ5CqlHUnPZHM9LyjwUvaR6iGpI4fYF7Wyzb7fTp0'
-    // token: null,
+    // token: 'BQDi9hJKdymtx3YzLLoWJ-_8LM_C-4nbEQABVGFFmvWr1D78gq…sXP98vhlpJ5CqlHUnPZHM9LyjwUvaR6iGpI4fYF7Wyzb7fTp0'
+    token: null,
 }
 
 //reduce takes state of what the StateProvider looks like and an action
@@ -32,6 +32,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 playlists: action.playlists
+            }
+        case 'SET_DISCOVER_WEEKLY':
+            return {
+                ...state,
+                discover_weekly: action.discover_weekly
             }
         //must always have a default
         default: 
