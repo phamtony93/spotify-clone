@@ -16,7 +16,15 @@ const scopes = [
   "user-read-playback-state",
   "user-top-read",
   "user-modify-playback-state",
+  "streaming",
+  "user-read-email",
+  "user-read-private",
 ];
+
+//Access Token: expires after 1 hour
+//Generate here: https://developer.spotify.com/documentation/web-playback-sdk/quick-start/#
+const accessToken =
+  "BQANrJ2Kvt4T7jWUH1SssTRjI7P14OvGoZwjnEAYb4hAAnQEf4Cicc8ZaDGyJG_yZD31-02XSzBnsyQ65RbCXX7vHG_V6CE85SyuaoaE3KVqmmvmoPxSbER5aHEZzGavjYImBk5QHNiGzw32VIsg3fwsv324Kg";
 
 //Provided access token prepended to redirect url. Obtain token by parsing the url string on the current window
 export const getTokenFromUrl = () => {

@@ -8,7 +8,7 @@ import { spotify } from "./spotify";
 
 function App() {
   //dispatch is a function that allows us to interact with the StateContext layer. We can dispatch actions to update state
-  const [{ user, playlist, token }, dispatch] = useStateProviderValue();
+  const [{ user, playlists, token }, dispatch] = useStateProviderValue();
 
   useEffect(() => {
     //When we are redirected back to the app compoenent, the app component is rerendered with the new url. Grab access token from url at that point
@@ -39,7 +39,7 @@ function App() {
         });
       });
       //Dispatch user's playlist to StatePovider layer
-      spotify.getUserPlaylists().then((playlists) => {
+      spotify.getUserPlaylists(spotify.user).then((playlists) => {
         dispatch({
           type: "SET_PLAYLISTS",
           playlists: playlists,
@@ -52,9 +52,50 @@ function App() {
           discover_weekly: playlist,
         });
       });
+
+      spotify.getMyCurrentPlayingTrack().then((currentSong) => {
+        dispatch({
+          type: "SET_CURRENT_SONG",
+          currentSong: currentSong,
+        });
+      });
     }
+
+    dispatch({
+      type: "SET_SPOTIFY",
+      spotify: spotify,
+    });
   }, []);
 
+  // const checkForPlayer = () => {
+  // window.onSpotifyWebPlaybackSDKReady = () => {
+  //   const token =
+  //     "BQAxdY8iDcHEoHDVfzKfsvdaQbkWqzWducAjwjocd8fTHfmNx9I7zug4kGEYF39822z0AUSILFnspb7t0_tAW8qx8lv4VzpOmkSmR-LNJ6wmbTnhRbajZ0JzrdwDWWS6x6Ine_0fFUwYWVCSeWQ_qnaNcgA3uQ";
+  //   const player = new window.Spotify.Player({
+  //     name: "Web Playback SDK Quick Start Player",
+  //     getOAuthToken: (cb) => {
+  //       cb(token);
+  //     },
+  //   });
+  //   player.connect();
+  // };
+
+  //   const token =
+  //     "BQANrJ2Kvt4T7jWUH1SssTRjI7P14OvGoZwjnEAYb4hAAnQEf4Cicc8ZaDGyJG_yZD31-02XSzBnsyQ65RbCXX7vHG_V6CE85SyuaoaE3KVqmmvmoPxSbER5aHEZzGavjYImBk5QHNiGzw32VIsg3fwsv324Kg";
+
+  //   if (window.Spotify !== null) {
+  //     const player = new window.Spotify.Player({
+  //       name: "Tony's Spotify Player",
+  //       getOAuthToken: (cb) => {
+  //         cb(token);
+  //       },
+  //     });
+
+  //     player.connect();
+  //   }
+  // };
+
+  console.log("playlists >>>>>>>", playlists);
   return (
     <div className="app">
       {token ? <Player spotify={spotify} /> : <Login />}
