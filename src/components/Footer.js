@@ -8,12 +8,12 @@ import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
-import { Grid, Slider } from "@material-ui/core";
+import { Grid, Slider, Tooltip } from "@material-ui/core";
 import { useStateProviderValue } from "../StateProvider";
 
 function Footer() {
   const [
-    { token, spotify, playing, currentSong },
+    { token, spotify, playing, currentSong, repeat, shuffle },
     dispatch,
   ] = useStateProviderValue();
 
@@ -61,6 +61,38 @@ function Footer() {
     });
   };
 
+  const handleRepeat = () => {
+    if (repeat) {
+      spotify.setRepeat("off").catch((e) => console.log(e));
+      dispatch({
+        type: "SET_REPEAT",
+        repeat: false,
+      });
+    } else {
+      spotify.setRepeat("track").catch((e) => console.log(e));
+      dispatch({
+        type: "SET_REPEAT",
+        repeat: true,
+      });
+    }
+  };
+
+  const handleShuffle = () => {
+    if (shuffle) {
+      spotify.setShuffle(false).catch((e) => console.log(e));
+      dispatch({
+        type: "SET_SHUFFLE",
+        shuffle: false,
+      });
+    } else {
+      spotify.setShuffle(true).catch((e) => console.log(e));
+      dispatch({
+        type: "SET_SHUFFLE",
+        shuffle: true,
+      });
+    }
+  };
+
   const albumImage = currentSong?.item?.album?.images[2]?.url;
   const songName = currentSong?.item?.name;
   const artistName = currentSong?.item?.artists[0]?.name;
@@ -77,23 +109,41 @@ function Footer() {
         </div>
       </div>
       <div className="footer_center">
-        <ShuffleIcon className="footer_green" />
-        <SkipPreviousIcon onClick={handlePrev} className="footer_icon" />
+        <Tooltip title="Shuffle">
+          <ShuffleIcon
+            onClick={handleShuffle}
+            className={shuffle ? "footer_green" : "footer_icon"}
+          />
+        </Tooltip>
+        <Tooltip title="Previous">
+          <SkipPreviousIcon onClick={handlePrev} className="footer_icon" />
+        </Tooltip>
         {playing ? (
-          <PauseCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer__icon"
-          />
+          <Tooltip title="Pause">
+            <PauseCircleOutlineIcon
+              onClick={handlePlayPause}
+              fontSize="large"
+              className="footer__icon"
+            />
+          </Tooltip>
         ) : (
-          <PlayCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer_icon"
-          />
+          <Tooltip title="Play">
+            <PlayCircleOutlineIcon
+              onClick={handlePlayPause}
+              fontSize="large"
+              className="footer_icon"
+            />
+          </Tooltip>
         )}
-        <SkipNextIcon onClick={handleNext} className="footer_icon" />
-        <RepeatIcon className="footer_green" />
+        <Tooltip title="Next">
+          <SkipNextIcon onClick={handleNext} className="footer_icon" />
+        </Tooltip>
+        <Tooltip title="Repeat">
+          <RepeatIcon
+            onClick={handleRepeat}
+            className={repeat ? "footer_green" : "footer_icon"}
+          />
+        </Tooltip>
       </div>
       <div className="footer_right">
         <Grid container spacing={2}>

@@ -6,6 +6,8 @@ export const initialState = {
   //init token state for dev purposes. remove after dev is completed
   // token: 'BQDi9hJKdymtx3YzLLoWJ-_8LM_C-4nbEQABVGFFmvWr1D78gq…sXP98vhlpJ5CqlHUnPZHM9LyjwUvaR6iGpI4fYF7Wyzb7fTp0'
   token: null,
+  repeat: false,
+  shuffle: false,
 };
 
 //reduce takes state of what the StateProvider looks like and an action
@@ -53,6 +55,18 @@ const reducer = (state, action) => {
         ...state,
         playing: action.playing,
       };
+
+    case "SET_REPEAT":
+      return {
+        ...state,
+        repeat: action.repeat,
+      };
+    case "SET_SHUFFLE":
+      return {
+        ...state,
+        shuffle: action.shuffle,
+      };
+
     //must always have a default
     default:
       return state;
