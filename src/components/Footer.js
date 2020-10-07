@@ -33,12 +33,32 @@ function Footer() {
     }
   };
 
-  const handleNext = () => {
-    spotify.skipToNext().catch((e) => console.log(e));
+  const handleNext = async () => {
+    await spotify.skipToNext().catch((e) => console.log(e));
+    dispatch({
+      type: "SET_PLAYING",
+      playing: true,
+    });
+    spotify.getMyCurrentPlayingTrack().then((currentSong) => {
+      dispatch({
+        type: "SET_CURRENT_SONG",
+        currentSong: currentSong,
+      });
+    });
   };
 
-  const handlePrev = () => {
-    spotify.skipToPrevious().catch((e) => console.log(e));
+  const handlePrev = async () => {
+    await spotify.skipToPrevious().catch((e) => console.log(e));
+    dispatch({
+      type: "SET_PLAYING",
+      playing: true,
+    });
+    spotify.getMyCurrentPlayingTrack().then((currentSong) => {
+      dispatch({
+        type: "SET_CURRENT_SONG",
+        currentSong: currentSong,
+      });
+    });
   };
 
   const albumImage = currentSong?.item?.album?.images[2]?.url;
