@@ -7,13 +7,14 @@ import SkipNextIcon from "@material-ui/icons/SkipNext";
 import ShuffleIcon from "@material-ui/icons/Shuffle";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import VolumeDownIcon from "@material-ui/icons/VolumeDown";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { Grid, Slider, Tooltip } from "@material-ui/core";
 import { useStateProviderValue } from "../StateProvider";
 
 function Footer() {
   const [
-    { token, spotify, playing, currentSong, repeat, shuffle },
+    { token, spotify, playing, currentSong, repeat, shuffle, volume },
     dispatch,
   ] = useStateProviderValue();
 
@@ -93,12 +94,36 @@ function Footer() {
     }
   };
 
+  const handleChange = (e) => {
+    const volume = e.target.ariaValueNow;
+    spotify.setVolume(volume).catch((e) => console.log(e));
+    dispatch({
+      type: "SET_VOLUME",
+      volume: volume,
+    });
+  };
+
+  const setVolumeMinMax = () => {
+    if (volume !== 0) {
+      spotify.setVolume(0).catch((e) => console.log(e));
+      dispatch({
+        type: "SET_VOLUME",
+        volume: 0,
+      });
+    } else {
+      spotify.setVolume(100).catch((e) => console.log(e));
+      dispatch({
+        type: "SET_VOLUME",
+        volume: 100,
+      });
+    }
+  };
+
   const albumImage = currentSong?.item?.album?.images[2]?.url;
   const songName = currentSong?.item?.name;
   const artistName = currentSong?.item?.artists[0]?.name;
 
-  console.log("spotify >>>>>> ", spotify);
-  console.log("current playing >>>>>>", currentSong);
+  console.log("volume >>>>>>", volume);
   return (
     <div className="footer">
       <div className="footer_left">
@@ -151,10 +176,14 @@ function Footer() {
             <PlaylistPlayIcon />
           </Grid>
           <Grid item>
-            <VolumeDownIcon />
+            {volume === 0 ? (
+              <VolumeOffIcon onClick={setVolumeMinMax} />
+            ) : (
+              <VolumeDownIcon onClick={setVolumeMinMax} />
+            )}
           </Grid>
           <Grid item xs>
-            <Slider />
+            <Slider onChange={handleChange} />
           </Grid>
         </Grid>
       </div>

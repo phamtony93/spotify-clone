@@ -8,6 +8,7 @@ export const initialState = {
   token: null,
   repeat: false,
   shuffle: false,
+  volume: 75,
 };
 
 //reduce takes state of what the StateProvider looks like and an action
@@ -66,7 +67,11 @@ const reducer = (state, action) => {
         ...state,
         shuffle: action.shuffle,
       };
-
+    case "SET_VOLUME":
+      return {
+        ...state,
+        volume: action.volume,
+      };
     //must always have a default
     default:
       return state;
