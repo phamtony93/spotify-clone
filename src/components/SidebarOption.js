@@ -12,7 +12,7 @@ function SidebarOption({ title, Icon, id }) {
       spotify.getPlaylistTracks(id).then((playlist) => {
         dispatch({
           type: "SET_SELECTED_PLAYLIST",
-          selectedPlaylist: playlist,
+          selectedPlaylist: { ...playlist, title },
         });
       });
     }

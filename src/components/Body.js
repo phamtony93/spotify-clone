@@ -13,6 +13,8 @@ function Body(spotify) {
     dispatch,
   ] = useStateProviderValue();
 
+  const playlistChosen = selectedPlaylist?.length === 0 ? false : true;
+
   console.log("selected playlist >>>>>>>>>", selectedPlaylist);
   return (
     <div className="body">
@@ -22,7 +24,7 @@ function Body(spotify) {
         <img src={discover_weekly?.images[0].url} alt=""></img>
         <div className="body_infoText">
           <strong>PLAYLIST</strong>
-          <h4>Discover Weekly</h4>
+          <h4>{playlistChosen ? selectedPlaylist.title : "Discover Weekly"}</h4>
           <p>{discover_weekly?.description}</p>
         </div>
       </div>
@@ -35,11 +37,11 @@ function Body(spotify) {
           <FavoriteIcon fontSize="large" />
           <MoreHorizIcon />
         </div>
-        {selectedPlaylist?.length === 0
-          ? discover_weekly?.tracks.items.map((item) => {
+        {playlistChosen
+          ? selectedPlaylist?.items.map((item) => {
               return <SongRow track={item.track} />;
             })
-          : selectedPlaylist?.items.map((item) => {
+          : discover_weekly?.tracks.items.map((item) => {
               return <SongRow track={item.track} />;
             })}
       </div>

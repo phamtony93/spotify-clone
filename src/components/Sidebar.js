@@ -18,16 +18,21 @@ function Sidebar() {
         alt=""
         className="sidebar_logo"
       ></img>
-      <SidebarOption title="Home" Icon={HomeIcon} />
-      <SidebarOption title="Search" Icon={SearchIcon} />
-      <SidebarOption title="Your Library" Icon={LibraryMusicIcon} />
+      <div clssName="sidebar_top">
+        <SidebarOption title="Home" Icon={HomeIcon} />
+        <SidebarOption title="Search" Icon={SearchIcon} />
+        <SidebarOption title="Your Library" Icon={LibraryMusicIcon} />
+      </div>
+
       <br />
       <strong className="sidebar_title">PLAYLISTS</strong>
       <hr />
+      <div className="sidebar_bottom">
+        {playlists?.items?.map((playlist) => {
+          return <SidebarOption title={playlist.name} id={playlist.id} />;
+        })}
+      </div>
       {/* use optional chaining to protect app from crashing in event playlist is null */}
-      {playlists?.items?.map((playlist) => {
-        return <SidebarOption title={playlist.name} id={playlist.id} />;
-      })}
     </div>
   );
 }

@@ -1,32 +1,45 @@
 .sidebar {
-    height: 100vh;
-    /* need to specify each component's flex to use total of 1.0 */
-    flex: .2;
-    min-width: 230px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: white; 
-    background-color: #040404; 
+  height: 100vh;
+  /* need to specify each component's flex to use total of 1.0 */
+  flex: 0.2;
+  min-width: 230px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  overflow-y: overlay;
+  background-color: #040404;
 }
 
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* .sidebar_bottom::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar_bottom {
+  overflow-y: overlay;
+} */
+
 .sidebar_logo {
-    /* obbject-fit contain will hold the aspect ratio */
-    object-fit: contain;
-    height: 70px;
-    padding: 10px;
-    margin-right: auto;
+  /* obbject-fit contain will hold the aspect ratio */
+  object-fit: contain;
+  height: 70px;
+  padding: 10px;
+  margin-right: auto;
 }
 
 .sidebar_title {
-    margin-left: 10px;
-    padding: 5px;
-    font-size: 12px;
+  margin-left: 10px;
+  padding: 5px;
+  font-size: 12px;
 }
 
 .sidebar > hr {
-    /* so line doesn't go end to end */
-    width: 90%;
-    /* center left right with 10px margin top bottom */
-    margin: 10px auto;
-    border: 1px solid #282828
+  /* so line doesn't go end to end */
+  width: 90%;
+  /* center left right with 10px margin top bottom */
+  margin: 10px auto;
+  border: 1px solid #282828;
 }
