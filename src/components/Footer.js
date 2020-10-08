@@ -123,7 +123,7 @@ function Footer() {
   const songName = currentSong?.item?.name;
   const artistName = currentSong?.item?.artists[0]?.name;
 
-  console.log("volume >>>>>>", volume);
+  //   console.log("volume >>>>>>", volume);
   return (
     <div className="footer">
       <div className="footer_left">

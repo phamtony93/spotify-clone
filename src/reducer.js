@@ -9,6 +9,7 @@ export const initialState = {
   repeat: false,
   shuffle: false,
   volume: 75,
+  selectedPlaylist: [],
 };
 
 //reduce takes state of what the StateProvider looks like and an action
@@ -71,6 +72,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         volume: action.volume,
+      };
+    case "SET_SELECTED_PLAYLIST":
+      return {
+        ...state,
+        selectedPlaylist: action.selectedPlaylist,
       };
     //must always have a default
     default:
