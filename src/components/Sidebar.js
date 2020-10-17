@@ -4,12 +4,15 @@ import SidebarOption from "./SidebarOption";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import FavoriteIcon from "@material-ui/icons/Favorite"
 import { useStateProviderValue } from "../StateProvider";
 
 function Sidebar() {
-  let [{ playlists }, dispatch] = useStateProviderValue();
+  let [{ playlists, spotify }, dispatch] = useStateProviderValue();
 
-  console.log("playlists >>>>>>", playlists);
+
+
+
 
   return (
     <div className="sidebar">
@@ -22,6 +25,7 @@ function Sidebar() {
         <SidebarOption title="Home" Icon={HomeIcon} />
         <SidebarOption title="Search" Icon={SearchIcon} />
         <SidebarOption title="Your Library" Icon={LibraryMusicIcon} />
+        <SidebarOption title="Liked Songs" Icon={FavoriteIcon} likedSongs={true}/>
       </div>
 
       <br />
