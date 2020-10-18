@@ -15,7 +15,6 @@ function Body(spotify) {
 
   const playlistChosen = selectedPlaylist?.length === 0 ? false : true;
 
-  console.log("selected playlist >>>>>>>>>", selectedPlaylist);
   return (
     <div className="body">
       <Header spotify={spotify} />

@@ -78,6 +78,16 @@ const reducer = (state, action) => {
         ...state,
         selectedPlaylist: action.selectedPlaylist,
       };
+    case "SET_PLAYER":
+      return {
+        ...state,
+        player: action.player
+      };
+    case "SET_DEVICE_ID":
+      return {
+        ...state,
+        device_id: action.device_id
+      };
     //must always have a default
     default:
       return state;

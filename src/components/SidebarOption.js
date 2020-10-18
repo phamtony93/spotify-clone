@@ -29,7 +29,6 @@ function SidebarOption({ title, Icon, id , likedSongs}) {
       })
     }
   }
-  console.log("selected >>>>", selectedPlaylist);
 
   return (
     <div className="sidebarOption" onClick={likedSongs ? setLikedSongs : handleClick}>

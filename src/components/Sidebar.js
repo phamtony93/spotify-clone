@@ -21,7 +21,7 @@ function Sidebar() {
         alt=""
         className="sidebar_logo"
       ></img>
-      <div clssName="sidebar_top">
+      <div className="sidebar_top">
         <SidebarOption title="Home" Icon={HomeIcon} />
         <SidebarOption title="Search" Icon={SearchIcon} />
         <SidebarOption title="Your Library" Icon={LibraryMusicIcon} />

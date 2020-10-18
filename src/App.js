@@ -8,7 +8,8 @@ import { spotify } from "./spotify";
 
 function App() {
   //dispatch is a function that allows us to interact with the StateContext layer. We can dispatch actions to update state
-  const [{ user, playlists, token }, dispatch] = useStateProviderValue();
+  const [{ user, playlists, token, player }, dispatch] = useStateProviderValue();
+  let playerCheckInterval = null;
 
   useEffect(() => {
     //When we are redirected back to the app compoenent, the app component is rerendered with the new url. Grab access token from url at that point
@@ -59,41 +60,92 @@ function App() {
           currentSong: currentSong,
         });
       });
+      console.log('1')
+      playerCheckInterval = setInterval(() => checkForPlayer(_token), 1000)
     }
 
     dispatch({
       type: "SET_SPOTIFY",
       spotify: spotify,
     });
+
+
   }, []);
 
-  // const checkForPlayer = () => {
-  // window.onSpotifyWebPlaybackSDKReady = () => {
-  //   const token =
-  //     "BQAxdY8iDcHEoHDVfzKfsvdaQbkWqzWducAjwjocd8fTHfmNx9I7zug4kGEYF39822z0AUSILFnspb7t0_tAW8qx8lv4VzpOmkSmR-LNJ6wmbTnhRbajZ0JzrdwDWWS6x6Ine_0fFUwYWVCSeWQ_qnaNcgA3uQ";
-  //   const player = new window.Spotify.Player({
-  //     name: "Web Playback SDK Quick Start Player",
-  //     getOAuthToken: (cb) => {
-  //       cb(token);
-  //     },
-  //   });
-  //   player.connect();
-  // };
+  const checkForPlayer = (token) => {
+    if(window.Spotify !== null) {
+      console.log('worked!')
+      const player = new window.Spotify.Player({
+        name: "Test Spotify Player",
+        getOAuthToken: cb => { cb(token); }
+      })
+      dispatch({
+        type: 'SET_PLAYER',
+        player: player
+      })
+      // console.log('player >>>> ', player)
+      clearInterval(playerCheckInterval);
 
-  //   const token =
-  //     "BQANrJ2Kvt4T7jWUH1SssTRjI7P14OvGoZwjnEAYb4hAAnQEf4Cicc8ZaDGyJG_yZD31-02XSzBnsyQ65RbCXX7vHG_V6CE85SyuaoaE3KVqmmvmoPxSbER5aHEZzGavjYImBk5QHNiGzw32VIsg3fwsv324Kg";
+      player.on('initialization_error', e => console.log(e));
+      player.on('authentication_error', e => {
+        console.log(e);
+      })
+      player.on('account_error', e => console.log(e))
+      player.on('playback_error', e => console.log(e))
+      console.log('test')
+      player.on('player_state_changed', state => console.log(state))
+      player.on('ready', async data => {
+        let {device_id} = data;
+        console.log("Let the music play on!");
+        transferPlaybackHere(device_id, token);
+        dispatch({
+          type: 'SET_DEVICE_ID',
+          device_id: device_id
+        })
+      })
+      // createEventHandlers();
 
-  //   if (window.Spotify !== null) {
-  //     const player = new window.Spotify.Player({
-  //       name: "Tony's Spotify Player",
-  //       getOAuthToken: (cb) => {
-  //         cb(token);
-  //       },
-  //     });
+      player.connect();
+    }
+  };
 
-  //     player.connect();
-  //   }
-  // };
+  const createEventHandlers = () => {
+    console.log('player >>>> ', player)
+    player.on('initialization_error', e => console.log(e));
+    player.on('authentication_error', e => {
+      console.log(e);
+    })
+    player.on('account_error', e => console.log(e))
+    player.on('playback_error', e => console.log(e))
+    player.on('player_state_changed', state => console.log(state))
+    player.on('ready', async data => {
+      let {device_id} = data;
+      console.log("Let the music play on!!");
+      console.log('2');
+      transferPlaybackHere(device_id);
+      dispatch({
+        type: 'SET_DEVICE_ID',
+        device_id: device_id
+      });
+    })
+  }
+
+  const transferPlaybackHere = (device_id, token) => {
+    console.log("token here is ", token)
+    fetch('https://api.spotify.com/v1/me/player', {
+      method: 'PUT',
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-type": "application/json"
+      }, 
+      body: JSON.stringify({
+        "device_ids":[device_id],
+        "play": true
+      })
+    })
+  }
+
+  console.log("token is ", token)
 
   return (
     <div className="app">

@@ -19,7 +19,12 @@ const scopes = [
   "streaming",
   "user-read-email",
   "user-read-private",
+  "streaming",
 ];
+
+
+
+
 
 //Access Token: expires after 1 hour
 //Generate here: https://developer.spotify.com/documentation/web-playback-sdk/quick-start/#
