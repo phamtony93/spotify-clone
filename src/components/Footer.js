@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Footer.css";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
@@ -17,6 +17,11 @@ function Footer() {
     { token, spotify, playing, currentSong, repeat, shuffle, volume },
     dispatch,
   ] = useStateProviderValue();
+
+  //TODO: resolve volume issue
+  // useEffect(() => {
+  //   spotify.setVolume(volume).catch(e => console.log(e));
+  // }, [])
 
   const handlePlayPause = () => {
     if (playing) {
@@ -94,7 +99,7 @@ function Footer() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleVolumeChange = (e) => {
     const volume = e.target.ariaValueNow;
     spotify.setVolume(volume).catch((e) => console.log(e));
     dispatch({
@@ -183,7 +188,10 @@ function Footer() {
             )}
           </Grid>
           <Grid item xs>
-            <Slider onChange={handleChange} />
+            <Slider 
+            onChange={handleVolumeChange}
+            valueLabelDisplay="on"
+            defaultValue={volume} />
           </Grid>
         </Grid>
       </div>

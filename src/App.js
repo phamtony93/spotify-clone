@@ -69,12 +69,10 @@ function App() {
       spotify: spotify,
     });
 
-
   }, []);
 
   const checkForPlayer = (token) => {
     if(window.Spotify !== null) {
-      console.log('worked!')
       const player = new window.Spotify.Player({
         name: "Test Spotify Player",
         getOAuthToken: cb => { cb(token); }
@@ -92,7 +90,6 @@ function App() {
       })
       player.on('account_error', e => console.log(e))
       player.on('playback_error', e => console.log(e))
-      console.log('test')
       player.on('player_state_changed', state => console.log(state))
       player.on('ready', async data => {
         let {device_id} = data;
@@ -106,32 +103,38 @@ function App() {
       // createEventHandlers();
 
       player.connect();
+      // player.getVolume().then(volume => {
+      //   dispatch({
+      //     type: 'SET_VOLUME',
+      //     volume: volume * 100
+      //   })
+      // })
+
     }
   };
 
-  const createEventHandlers = () => {
-    console.log('player >>>> ', player)
-    player.on('initialization_error', e => console.log(e));
-    player.on('authentication_error', e => {
-      console.log(e);
-    })
-    player.on('account_error', e => console.log(e))
-    player.on('playback_error', e => console.log(e))
-    player.on('player_state_changed', state => console.log(state))
-    player.on('ready', async data => {
-      let {device_id} = data;
-      console.log("Let the music play on!!");
-      console.log('2');
-      transferPlaybackHere(device_id);
-      dispatch({
-        type: 'SET_DEVICE_ID',
-        device_id: device_id
-      });
-    })
-  }
+  // const createEventHandlers = () => {
+  //   console.log('player >>>> ', player)
+  //   player.on('initialization_error', e => console.log(e));
+  //   player.on('authentication_error', e => {
+  //     console.log(e);
+  //   })
+  //   player.on('account_error', e => console.log(e))
+  //   player.on('playback_error', e => console.log(e))
+  //   player.on('player_state_changed', state => console.log(state))
+  //   player.on('ready', async data => {
+  //     let {device_id} = data;
+  //     console.log("Let the music play on!!");
+  //     console.log('2');
+  //     transferPlaybackHere(device_id);
+  //     dispatch({
+  //       type: 'SET_DEVICE_ID',
+  //       device_id: device_id
+  //     });
+  //   })
+  // }
 
   const transferPlaybackHere = (device_id, token) => {
-    console.log("token here is ", token)
     fetch('https://api.spotify.com/v1/me/player', {
       method: 'PUT',
       headers: {
@@ -144,8 +147,6 @@ function App() {
       })
     })
   }
-
-  console.log("token is ", token)
 
   return (
     <div className="app">

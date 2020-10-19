@@ -9,6 +9,10 @@ function SongRow({ track }) {
     console.log("added song >>>>>>>>>", song);
   };
 
+  const playSong = (song) => {
+    spotify.play({uris: [song]})
+  }
+
   return (
     <div className="songRow" onClick={() => addToQueue(track.uri)}>
       <img
